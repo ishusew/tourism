@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:rive/rive.dart' as rive;
 import 'package:flutter_svg/flutter_svg.dart';
+
+import '../controller/SignUpController.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -12,6 +15,8 @@ class SignUpScreen extends StatefulWidget {
 
 
 class _SignUpScreenScreenState extends State<SignUpScreen> {
+  final controller = Get.put(SignUpController());
+  final _formKey = GlobalKey<FormState>();
   bool isRememberMe = false;
   late rive.RiveAnimationController _animationController;
   FocusNode _passwordFocusNode = FocusNode();
@@ -60,6 +65,7 @@ class _SignUpScreenScreenState extends State<SignUpScreen> {
           ),
           height: 60,
           child: TextField(
+            controller: controller.email,
             keyboardType: TextInputType.emailAddress,
             style: TextStyle(
                 color: Colors.black87
@@ -110,6 +116,7 @@ class _SignUpScreenScreenState extends State<SignUpScreen> {
           ),
           height: 60,
           child: TextField(
+            controller: controller.fullName,
             keyboardType: TextInputType.name,
             style: TextStyle(
                 color: Colors.black87
@@ -160,6 +167,7 @@ class _SignUpScreenScreenState extends State<SignUpScreen> {
           ),
           height: 60,
           child: TextField(
+            controller: controller.phoneNo,
             keyboardType: TextInputType.phone,
             style: TextStyle(
                 color: Colors.black87
@@ -261,6 +269,7 @@ class _SignUpScreenScreenState extends State<SignUpScreen> {
           ),
           height: 60,
           child: TextField(
+            controller: controller.password,
             obscureText: true,
             style: TextStyle(
                 color: Colors.black87
@@ -338,13 +347,18 @@ class _SignUpScreenScreenState extends State<SignUpScreen> {
       child: MaterialButton(
         elevation: 5,
         height: 50,
-        onPressed: () => print('Login Pressed'),
+        onPressed: (){
+          if(_formKey.currentState!.validate()) {
+            SignUpController.instance.registerUser(controller.email.text.trim(), controller.password.text.trim());
+          }
+          print('SignUp Pressed');
+        },
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15)
         ),
         color: Colors.white,
         child: Text(
-          'LOGIN',
+          'Sign up',
           style: TextStyle(
               color: Color(0xff5ac18e),
               fontSize: 18,
@@ -429,29 +443,32 @@ class _SignUpScreenScreenState extends State<SignUpScreen> {
                       physics: ClampingScrollPhysics(),
                       child: Padding(
                         padding: EdgeInsets.fromLTRB(25, 0, 25, 0),
-                        child: Column(
-                          children: [
-                            SizedBox(height: 50),
-                            buildEmail(),
-                            SizedBox(height: 20),
-                            buildName(),
-                            SizedBox(height: 20),
-                            buildPhone(),
-                            SizedBox(height: 20),
-                            buildNationality(),
-                            SizedBox(height: 20),
-                            buildPassword(),
-                            buildForgotPassBtn(),
-                            buildRememberCb(),
-                            buildLoginBtn(),
-                            buildSignUpBtn(),
-                            SizedBox(height: 10),
-                            Container(
-                              width: 50,
-                              height: 50,
-                              child: SvgPicture.asset('assets/icons/google.svg'),
-                            ),
-                          ],
+                        child: Form(
+                          key: _formKey,
+                          child: Column(
+                            children: [
+                              SizedBox(height: 50),
+                              buildEmail(),
+                              SizedBox(height: 20),
+                              buildName(),
+                              SizedBox(height: 20),
+                              buildPhone(),
+                              SizedBox(height: 20),
+                              buildNationality(),
+                              SizedBox(height: 20),
+                              buildPassword(),
+                              buildForgotPassBtn(),
+                              buildRememberCb(),
+                              buildLoginBtn(),
+                              buildSignUpBtn(),
+                              SizedBox(height: 10),
+                              Container(
+                                width: 50,
+                                height: 50,
+                                child: SvgPicture.asset('assets/icons/google.svg'),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
