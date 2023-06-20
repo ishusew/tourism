@@ -56,7 +56,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       height: 100,
                     ),
                     SizedBox(
-                      width: 280,
+                      width: 300,
                       child: Column(
                         children: [
                           const Text(
@@ -97,6 +97,28 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                               ),
                             ),
                           ),
+                          Align(
+                            alignment: Alignment.bottomCenter,
+                            child: FractionalTranslation(
+                              translation: Offset(0.0, 1.0),
+                              child: TextButton(
+                                onPressed: () {
+                                  print("pressed choose language");
+                                },
+                                style: TextButton.styleFrom(
+                                  backgroundColor: Colors.transparent, // Set the background color to transparent
+                                ),
+                                child: Text(
+                                  'Choose Language',
+                                  style: TextStyle(
+                                    color: Colors.black, // Set the text color to black
+                                  ),
+                                ),
+                              ),
+                            ),
+                          )
+
+
 
                         ],
                       ),

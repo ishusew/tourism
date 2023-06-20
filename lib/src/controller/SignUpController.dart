@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
@@ -14,9 +13,8 @@ class SignUpController extends GetxController {
   final phoneNo = TextEditingController();
 
   //Call this Function from Design & it will do the rest
- void registerUser(String email, String password){
-   AuthenticationRepository.instance.createUserWithEmailAndPassword(email, password);
- }
-
-
+  void registerUser(String email, String password) {
+    AuthenticationRepository.instance
+        .createUserWithEmailAndPassword(email, password);
+  }
 }

@@ -1,10 +1,13 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:rive/rive.dart' as rive;
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:tourism/src/dashboard/HomeScreen.dart';
 
 import '../controller/SignUpController.dart';
+import 'Log.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -294,23 +297,6 @@ class _SignUpScreenScreenState extends State<SignUpScreen> {
     );
   }
 
-  Widget buildForgotPassBtn() {
-    return Container(
-      alignment: Alignment.centerRight,
-      child: TextButton(
-        onPressed: () => print("Forgot Password pressed"),
-        // padding: EdgeInsets.only(right: 0),
-        child: Text(
-          'Forgot password ?',
-          style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold
-          ),
-        ),
-      ),
-    );
-  }
-
   Widget buildRememberCb() {
     return Container(
       height: 20,
@@ -349,6 +335,7 @@ class _SignUpScreenScreenState extends State<SignUpScreen> {
         height: 50,
         onPressed: (){
           if(_formKey.currentState!.validate()) {
+
             SignUpController.instance.registerUser(controller.email.text.trim(), controller.password.text.trim());
           }
           print('SignUp Pressed');
@@ -357,12 +344,21 @@ class _SignUpScreenScreenState extends State<SignUpScreen> {
             borderRadius: BorderRadius.circular(15)
         ),
         color: Colors.white,
-        child: Text(
-          'Sign up',
-          style: TextStyle(
-              color: Color(0xff5ac18e),
-              fontSize: 18,
-              fontWeight: FontWeight.bold
+        child: GestureDetector(
+          onTap: ()=>
+          {
+
+            print('SignUp Pressed'),
+            Navigator.of(context).pushReplacement(
+                CupertinoPageRoute(builder: (ctx) => const HomeScreen())),
+          },
+          child: Text(
+            'Sign up',
+            style: TextStyle(
+                color: Color(0xff5ac18e),
+                fontSize: 18,
+                fontWeight: FontWeight.bold
+            ),
           ),
         ),
       ),
@@ -371,12 +367,19 @@ class _SignUpScreenScreenState extends State<SignUpScreen> {
 
   Widget buildSignUpBtn() {
     return GestureDetector(
-      onTap: () => print('sign up pressed'),
+      onTap: () => {
+        {
+
+          print('Login Pressed'),
+          Navigator.of(context).pushReplacement(
+              CupertinoPageRoute(builder: (ctx) => const LogScreen())),
+        },
+      },
       child: RichText(
         text: TextSpan(
           children: [
             TextSpan(
-                text: 'Don\'t have an Account?  ',
+                text: 'Do have an Account?  ',
                 style: TextStyle(
                     color: Colors.white,
                     fontSize: 18,
@@ -384,7 +387,7 @@ class _SignUpScreenScreenState extends State<SignUpScreen> {
                 )
             ),
             TextSpan(
-                text: 'Sign Up',
+                text: 'Login',
                 style: TextStyle(
                     color: Colors.white,
                     fontSize: 18,
@@ -457,7 +460,7 @@ class _SignUpScreenScreenState extends State<SignUpScreen> {
                               buildNationality(),
                               SizedBox(height: 20),
                               buildPassword(),
-                              buildForgotPassBtn(),
+                              SizedBox(height: 20),
                               buildRememberCb(),
                               buildLoginBtn(),
                               buildSignUpBtn(),

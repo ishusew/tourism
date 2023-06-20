@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:rive/rive.dart' as rive;
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:tourism/src/dashboard/HomeScreen.dart';
 import 'package:tourism/src/log/sign.dart';
 
 class LogScreen extends StatefulWidget {
@@ -12,9 +13,8 @@ class LogScreen extends StatefulWidget {
   State<LogScreen> createState() => _LogScreenState();
 }
 
-
 class _LogScreenState extends State<LogScreen> {
-  bool isRememberMe =false;
+  bool isRememberMe = false;
   late rive.RiveAnimationController _animationController;
   FocusNode _passwordFocusNode = FocusNode();
 
@@ -34,19 +34,18 @@ class _LogScreenState extends State<LogScreen> {
     });
   }
 
-  Widget buildEmail(){
+  Widget buildEmail() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           'Email',
           style: TextStyle(
-              color: Colors.white,
-              fontSize: 16,
-              fontWeight: FontWeight.bold
-          ),
+              color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
         ),
-        SizedBox(height: 10,),
+        SizedBox(
+          height: 10,
+        ),
         Container(
           alignment: Alignment.centerLeft,
           decoration: BoxDecoration(
@@ -54,18 +53,12 @@ class _LogScreenState extends State<LogScreen> {
               borderRadius: BorderRadius.circular(10),
               boxShadow: [
                 BoxShadow(
-                    color: Colors.black26,
-                    blurRadius: 6,
-                    offset: Offset(0,2)
-                )
-              ]
-          ),
+                    color: Colors.black26, blurRadius: 6, offset: Offset(0, 2))
+              ]),
           height: 60,
           child: TextField(
             keyboardType: TextInputType.emailAddress,
-            style: TextStyle(
-                color: Colors.black87
-            ),
+            style: TextStyle(color: Colors.black87),
             decoration: InputDecoration(
                 border: InputBorder.none,
                 contentPadding: EdgeInsets.only(top: 14),
@@ -74,30 +67,25 @@ class _LogScreenState extends State<LogScreen> {
                   color: Color(0xff5ac18e),
                 ),
                 hintText: 'Email',
-                hintStyle: TextStyle(
-                    color: Colors.black38
-                )
-            ),
+                hintStyle: TextStyle(color: Colors.black38)),
           ),
         )
       ],
     );
   }
 
-
-  Widget buildPassword(){
+  Widget buildPassword() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           'Password',
           style: TextStyle(
-              color: Colors.white,
-              fontSize: 16,
-              fontWeight: FontWeight.bold
-          ),
+              color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
         ),
-        SizedBox(height: 10,),
+        SizedBox(
+          height: 10,
+        ),
         Container(
           alignment: Alignment.centerLeft,
           decoration: BoxDecoration(
@@ -105,20 +93,13 @@ class _LogScreenState extends State<LogScreen> {
               borderRadius: BorderRadius.circular(10),
               boxShadow: [
                 BoxShadow(
-                    color: Colors.black26,
-                    blurRadius: 6,
-                    offset: Offset(0,2)
-                )
-              ]
-          ),
+                    color: Colors.black26, blurRadius: 6, offset: Offset(0, 2))
+              ]),
           height: 60,
           child: TextField(
             obscureText: true,
-            style: TextStyle(
-                color: Colors.black87
-            ),
+            style: TextStyle(color: Colors.black87),
             focusNode: _passwordFocusNode,
-
             decoration: InputDecoration(
                 border: InputBorder.none,
                 contentPadding: EdgeInsets.only(top: 14),
@@ -127,34 +108,28 @@ class _LogScreenState extends State<LogScreen> {
                   color: Color(0xff5ac18e),
                 ),
                 hintText: 'Password',
-                hintStyle: TextStyle(
-                    color: Colors.black38
-                )
-            ),
+                hintStyle: TextStyle(color: Colors.black38)),
           ),
         )
       ],
     );
   }
 
-  Widget buildForgotPassBtn(){
+  Widget buildForgotPassBtn() {
     return Container(
       alignment: Alignment.centerRight,
       child: TextButton(
-        onPressed: ()=> print("Forgot Password pressed"),
+        onPressed: () => print("Forgot Password pressed"),
         // padding: EdgeInsets.only(right: 0),
         child: Text(
           'Forgot password ?',
-          style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold
-          ),
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
       ),
     );
   }
 
-  Widget buildRememberCb(){
+  Widget buildRememberCb() {
     return Container(
       height: 20,
       child: Row(
@@ -165,7 +140,7 @@ class _LogScreenState extends State<LogScreen> {
                 value: isRememberMe,
                 checkColor: Colors.green,
                 activeColor: Colors.white,
-                onChanged: (value){
+                onChanged: (value) {
                   setState(() {
                     isRememberMe = value!;
                   });
@@ -173,44 +148,42 @@ class _LogScreenState extends State<LogScreen> {
               )),
           Text(
             'Remember me',
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold
-            ),
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           )
         ],
       ),
     );
   }
 
-  Widget buildLoginBtn(){
+  Widget buildLoginBtn() {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 25),
       width: double.infinity,
       child: MaterialButton(
         elevation: 5,
         height: 50,
-        onPressed: ()=> print('Login Pressed'),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15)
-        ),
+        onPressed: () => {
+          print('Login Pressed'),
+            Navigator.of(context).pushReplacement(
+                CupertinoPageRoute(builder: (ctx) => const HomeScreen())),
+        },
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         color: Colors.white,
-        child: Text(
+        child: const Text(
           'LOGIN',
           style: TextStyle(
-            color: Color(0xff5ac18e),
-            fontSize: 18,
-            fontWeight: FontWeight.bold
-          ),
+              color: Color(0xff5ac18e),
+              fontSize: 18,
+              fontWeight: FontWeight.bold),
         ),
       ),
     );
   }
 
-  Widget buildSignUpBtn(){
+  Widget buildSignUpBtn() {
     return GestureDetector(
-      onTap: ()=>       Navigator.of(context).pushReplacement(
-          CupertinoPageRoute(builder: (ctx)=> const SignUpScreen())),
+      onTap: () => Navigator.of(context).pushReplacement(
+          CupertinoPageRoute(builder: (ctx) => const SignUpScreen())),
       child: RichText(
         text: TextSpan(
           children: [
@@ -219,23 +192,19 @@ class _LogScreenState extends State<LogScreen> {
                 style: TextStyle(
                     color: Colors.white,
                     fontSize: 18,
-                    fontWeight: FontWeight.w500
-                )
-            ),
+                    fontWeight: FontWeight.w500)),
             TextSpan(
-              text: 'Sign Up',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 18,
-                fontWeight: FontWeight.bold
-              )
-            )
+                text: 'Sign Up',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold))
           ],
-
         ),
       ),
     );
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -244,79 +213,72 @@ class _LogScreenState extends State<LogScreen> {
         child: GestureDetector(
           child: Stack(
             children: [
-
               Container(
-                height: double.infinity,
-                width: double.infinity,
-                decoration: BoxDecoration(
+                  height: double.infinity,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                        Color(0x665ac18e),
+                        Color(0x995ac18e),
+                        Color(0xcc5ac18e),
+                        Color(0xff5ac18e),
+                      ])),
+                  child: SingleChildScrollView(
+                    physics: AlwaysScrollableScrollPhysics(),
+                    padding: EdgeInsets.symmetric(horizontal: 25, vertical: 30),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        // Add the Rive animation widget
 
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Color(0x665ac18e),
-                      Color(0x995ac18e),
-                      Color(0xcc5ac18e),
-                      Color(0xff5ac18e),
-                    ]
-                  )
-                ),
-                child:
-                SingleChildScrollView(
-                  physics: AlwaysScrollableScrollPhysics(),
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 25,
-                    vertical: 30
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-
-
-                      // Add the Rive animation widget
-
-                         SizedBox(
-                           height: 150,
-                           width: 200,
-                           child: rive.RiveAnimation.asset(
-                             _passwordFocusNode.hasFocus
-                                 ? 'assets/RiveAssets/hands_up_character.riv'
-                                 : 'assets/RiveAssets/login_screen_character.riv',
-                             // fit: BoxFit.cover,
-                             // controllers: [_animationController],
-                           ),
-                         ),
-
-                      Text(
-                        'Sign In',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 40,
-                            fontWeight: FontWeight.bold
+                        SizedBox(
+                          height: 150,
+                          width: 200,
+                          child: rive.RiveAnimation.asset(
+                            _passwordFocusNode.hasFocus
+                                ? 'assets/RiveAssets/hands_up_character.riv'
+                                : 'assets/RiveAssets/login_screen_character.riv',
+                            // fit: BoxFit.cover,
+                            // controllers: [_animationController],
+                          ),
                         ),
-                      ),
-                      SizedBox(height: 50,),
-                      buildEmail(),
-                      SizedBox(height: 20,),
-                      buildPassword(),
-                      buildForgotPassBtn(),
-                      buildRememberCb(),
-                      buildLoginBtn(),
-                      buildSignUpBtn(),
-                      SizedBox(height: 10,),
-                      Container(
-                        width: 50,
-                        height: 50,
-                        child: SvgPicture.asset('assets/icons/google.svg'),
-                      )
-                    ],
-                  ),
-                )
-              )
+
+                        Text(
+                          'Sign In',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 40,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(
+                          height: 50,
+                        ),
+                        buildEmail(),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        buildPassword(),
+                        buildForgotPassBtn(),
+                        buildRememberCb(),
+                        buildLoginBtn(),
+                        buildSignUpBtn(),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Container(
+                          width: 50,
+                          height: 50,
+                          child: SvgPicture.asset('assets/icons/google.svg'),
+                        )
+                      ],
+                    ),
+                  ))
             ],
           ),
         ),
-
       ),
     );
   }
